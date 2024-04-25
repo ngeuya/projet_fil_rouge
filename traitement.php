@@ -1,9 +1,10 @@
 <?php
 // Paramètres de connexion à la base de données
-$serveur = 'localhost';
+$serveur = 'db';
 $nom_utilisateur = 'root';
 $mot_de_passe = 'root';
 $nom_base_de_donnees = 'aws_p3_g1';
+
 
 try {
     // Connexion à la base de données MySQL via PDO
@@ -30,14 +31,14 @@ try {
 
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
-            echo "Mise à jour réussie !";
+          //  echo "Mise à jour réussie !";
+            header("Location: index.php");
         } else {
             echo "Aucune ligne mise à jour.";
         }
         
       //  Rediriger après la mise à jour
-       header("Location: index.php");
-        exit;
+      //  exit;
     } else {
         // Récupérer les données existantes pour affichage
         $requete = "SELECT * FROM personne WHERE matricule = :matricule";

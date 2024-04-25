@@ -7,7 +7,7 @@
     ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php echo '<link rel="stylesheet" type="text/css" href="style.css">' ; ?>
+    <?php echo '<link rel="stylesheet" type="text/css" href="static/style.css">' ; ?>
     <title>Profil</title>
 </head>
 <body>
@@ -15,7 +15,7 @@
     <table>
         <tr>
             <td class="center-image">
-                <img src="person.jpeg"/>
+                <img src="static/person.jpeg"/>
             </td>
         </tr>
         <tr>            
