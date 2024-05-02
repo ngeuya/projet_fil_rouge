@@ -27,7 +27,7 @@ pipeline {
             steps {
                 script {
                     // Mettez ici vos commandes pour déployer l'application
-                    echo "Deploying to production"
+                    echo "Deploy"
                 }
             }
         }
