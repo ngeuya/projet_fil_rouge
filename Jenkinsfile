@@ -8,11 +8,11 @@ pipeline {
             steps {
                 script {
                     // Téléchargement de Docker Compose
-                    sh "curl -L \"https://github.com/docker/compose/releases/download/\${DOCKER_COMPOSE_VERSION}/docker-compose-\$(uname -s)-\$(uname -m)\" -o /usr/local/bin/docker-compose"
+                  //  sh "curl -L \"https://github.com/docker/compose/releases/download/\${DOCKER_COMPOSE_VERSION}/docker-compose-\$(uname -s)-\$(uname -m)\" -o /usr/local/bin/docker-compose"
                     sh "chmod +x /usr/local/bin/docker-compose"
                     sh "export PATH=$PATH:/usr/local/bin"
                     // Lancement de Docker Compose
-                    sh 'docker-compose up -d --build'
+                    sh '/usr/local/bin/docker-compose up -d --build'
                 }
             }
         }
@@ -37,7 +37,8 @@ pipeline {
     post {
         always {
             // Nettoyer les ressources Docker
-            sh 'docker-compose down'
+            sh '/usr/local/bin/docker-compose down'
+
         }
     }
 }
