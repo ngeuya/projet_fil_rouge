@@ -7,5 +7,4 @@
 ## Demarrer le serveur web
 ## lancer dans le navigateur
 `localhost:8888/projet_fil_rouge`
-vous pouvez le
 
