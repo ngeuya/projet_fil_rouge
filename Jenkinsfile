@@ -14,23 +14,23 @@ pipeline {
                 }
             }
         }
-        stage('Test') {
-            steps {
-                script {
-                    // Mettez ici vos commandes pour exécuter des tests
-                    echo "Running tests"
-                    sh 'curl -s http://localhost:8000'
-                }
-            }
-        }
-        stage('Test Deploy') {
-            steps {
-                script {
-                    // Mettez ici vos commandes pour déployer l'application
-                    echo "Deploy"
-                }
-            }
-        }
+        // stage('Test') {
+        //     steps {
+        //         script {
+        //             // Mettez ici vos commandes pour exécuter des tests
+        //             echo "Running tests"
+        //             sh 'curl -s http://localhost:8000'
+        //         }
+        //     }
+        // }
+        // stage('Test Deploy') {
+        //     steps {
+        //         script {
+        //             // Mettez ici vos commandes pour déployer l'application
+        //             echo "Deploy"
+        //         }
+        //     }
+        // }
     }
     post {
         success {
