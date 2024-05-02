@@ -23,7 +23,7 @@ pipeline {
                 }
             }
         }
-        stage('Deploy') {
+        stage('Test Deploy') {
             steps {
                 script {
                     // Mettez ici vos commandes pour déployer l'application
@@ -35,7 +35,7 @@ pipeline {
     post {
         always {
             // Nettoyer les ressources Docker
-            sh 'docker-compose down'
+            sh 'docker-compose down -v'
 
         }
     }
