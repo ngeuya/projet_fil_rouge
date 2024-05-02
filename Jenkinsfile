@@ -9,12 +9,8 @@ pipeline {
             steps {
                 script {
                     sh 'docker --version' // Vérifier que Docker est accessible
-                    // Téléchargement de Docker Compose
-                  //  sh "curl -L \"https://github.com/docker/compose/releases/download/\${DOCKER_COMPOSE_VERSION}/docker-compose-\$(uname -s)-\$(uname -m)\" -o /usr/local/bin/docker-compose"
-                    sh "chmod +x /usr/local/bin/docker-compose"
-                    sh "export PATH=$PATH:/usr/local/bin"
                     // Lancement de Docker Compose
-                    sh '/usr/local/bin/docker-compose up -d --build'
+                    sh 'docker-compose up -d --build'
                 }
             }
         }
@@ -39,7 +35,7 @@ pipeline {
     post {
         always {
             // Nettoyer les ressources Docker
-            sh '/usr/local/bin/docker-compose down'
+            sh 'docker-compose down'
 
         }
     }
