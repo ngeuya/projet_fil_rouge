@@ -17,7 +17,7 @@ services:
  
 
 
-  db:
+  db-service:
     build:  
       context: .  # Assurez-vous que ce répertoire contient le Dockerfile pour le service db
       dockerfile: Db.Dockerfile

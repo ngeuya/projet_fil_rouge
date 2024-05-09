@@ -3,6 +3,10 @@ pipeline {
     environment {
         DOCKER_COMPOSE_VERSION = '1.29.2'
         PATH = "/usr/local/bin:$PATH" // Assurez-vous que cela inclut le chemin vers Docker
+        DOCKER_IMAGE1 = "ngeuya/ame-apache"
+        DOCKER_TAG1 = "latest"
+        DOCKER_IMAGE2 = "ngeuya/ame-mysql"
+        DOCKER_TAG2 = "latest"
     }
     stages {
         stage('Build') {
@@ -10,32 +14,38 @@ pipeline {
                 script {
                     sh 'docker --version' // Vérifier que Docker est accessible
                     // Lancement de Docker Compose
-                    sh 'docker-compose up -d --build'
+                    sh 'docker build -t ${DOCKER_IMAGE1}:${DOCKER_TAG1} -f Db.Dockerfile .'
+                    sh 'docker build -t ${DOCKER_IMAGE2}:${DOCKER_TAG2} -f Web.Dockerfile .'
                 }
             }
         }
-        // stage('Test') {
-        //     steps {
-        //         script {
-        //             // Mettez ici vos commandes pour exécuter des tests
-        //             echo "Running tests"
-        //             sh 'curl -s http://localhost:8000'
-        //         }
-        //     }
-        // }
-        // stage('Test Deploy') {
-        //     steps {
-        //         script {
-        //             // Mettez ici vos commandes pour déployer l'application
-        //             echo "Deploy"
-        //         }
-        //     }
-        // }
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    // Mettez ici vos commandes pour pousser
+                    sh 'docker tag ${DOCKER_IMAGE1}:${DOCKER_TAG1} ngeuya/${DOCKER_IMAGE1}:${DOCKER_TAG1}'
+                    sh 'docker push ngeuya/${DOCKER_IMAGE1}:${DOCKER_TAG1}'
+                    sh 'docker tag ${DOCKER_IMAGE2}:${DOCKER_TAG2} ngeuya/${DOCKER_IMAGE2}:${DOCKER_TAG2}'
+                    sh 'docker push ngeuya/${DOCKER_IMAGE2}:${DOCKER_TAG2}'
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                script {
+                    // Mettez ici vos commandes pour déployer l'application
+                    echo "Deploy"
+                    sh 'kubectl apply -f components.yaml'
+                    sh 'kubectl apply -f db-deployment.yml'
+                    sh 'kubectl apply -f web-deployment.yml'
+                }
+            }
+        }
     }
     post {
         success {
             // Nettoyer les ressources Docker
-            sh 'docker-compose down -v'
+           // sh 'minikube service apache-service'
             emailext body: 'Resultat du build: Success', subject: 'Detail du Build', to: 'ndiaye58amadou@gmail.com'
 
         }

@@ -1,6 +1,6 @@
 <?php
 // Paramètres de connexion à la base de données
-$serveur = 'db';
+$serveur = 'db-service';
 $nom_utilisateur = 'root';
 $mot_de_passe = 'root';
 $nom_base_de_donnees = 'aws_p3_g1';
