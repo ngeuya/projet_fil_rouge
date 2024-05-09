@@ -3,9 +3,9 @@ pipeline {
     environment {
         DOCKER_COMPOSE_VERSION = '1.29.2'
         PATH = "/usr/local/bin:$PATH" // Assurez-vous que cela inclut le chemin vers Docker
-        DOCKER_IMAGE1 = "ngeuya/ame-apache"
+        DOCKER_IMAGE1 = "ame-apache"
         DOCKER_TAG1 = "latest"
-        DOCKER_IMAGE2 = "ngeuya/ame-mysql"
+        DOCKER_IMAGE2 = "ame-mysql"
         DOCKER_TAG2 = "latest"
     }
     stages {
