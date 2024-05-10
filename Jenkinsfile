@@ -14,8 +14,8 @@ pipeline {
                 script {
                     sh 'docker --version' // Vérifier que Docker est accessible
                     // Lancement de Docker Compose
-                    sh 'docker build -t ${DOCKER_IMAGE1}:${DOCKER_TAG1} -f Db.Dockerfile .'
-                    sh 'docker build -t ${DOCKER_IMAGE2}:${DOCKER_TAG2} -f Web.Dockerfile .'
+                    sh 'docker build -t ${DOCKER_IMAGE2}:${DOCKER_TAG1} -f Db.Dockerfile .'
+                    sh 'docker build -t ${DOCKER_IMAGE1}:${DOCKER_TAG2} -f Web.Dockerfile .'
                 }
             }
         }

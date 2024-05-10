@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: apache-deployment
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: web
@@ -50,15 +50,15 @@ spec:
 
 ##Ajuster le nombre de réplicas d'un déploiement
 ###Basé sur des métriques comme l'utilisation du CPU ou de la mémoire
-apiVersion: autoscaling/v1
-kind: HorizontalPodAutoscaler
-metadata:
-  name: apache-hpa
-spec:
-  maxReplicas: 5
-  minReplicas: 1
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: apache-deployment
-  targetCPUUtilizationPercentage: 50
+# apiVersion: autoscaling/v1
+# kind: HorizontalPodAutoscaler
+# metadata:
+#   name: apache-hpa
+# spec:
+#   maxReplicas: 5
+#   minReplicas: 1
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: apache-deployment
+#   targetCPUUtilizationPercentage: 50
