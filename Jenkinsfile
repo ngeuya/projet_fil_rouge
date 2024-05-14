@@ -25,7 +25,7 @@ pipeline {
                     // Mettez ici vos commandes pour pousser
                     sh 'docker tag ${DOCKER_IMAGE1}:${DOCKER_TAG1} ngeuya/${DOCKER_IMAGE1}:${DOCKER_TAG1}'
                     sh 'docker push ngeuya/${DOCKER_IMAGE1}:${DOCKER_TAG1}'
-                    sh 'docker tag ${DOCKER_IMAGE2                                                                                                         NH}:${DOCKER_TAG2} ngeuya/${DOCKER_IMAGE2}:${DOCKER_TAG2}'
+                    sh 'docker tag ${DOCKER_IMAGE2}:${DOCKER_TAG2} ngeuya/${DOCKER_IMAGE2}:${DOCKER_TAG2}'
                     sh 'docker push ngeuya/${DOCKER_IMAGE2}:${DOCKER_TAG2}'
                 }
             }
