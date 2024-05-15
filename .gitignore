@@ -3,7 +3,7 @@ test.txt
 /Terraform/*.tfstate
 /Terraform/*.tfstate.backup
 /Terraform/*.hcl
-/Terraform-Cloud/./Terraform
+/Terraform-Cloud/./terraform
 /Terraform-Cloud/*.tfstate
 /Terraform-Cloud/*.tfstate.backup
 /Terraform-Cloud/*.hcl
