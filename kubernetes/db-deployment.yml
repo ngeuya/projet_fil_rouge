@@ -1,33 +1,8 @@
-# mysql-pv-pvc.yaml
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: mysql-pv
-spec:
-  capacity:
-    storage: 1Gi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: /mnt/data/mysql
----
-
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: mysql-pvc
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
----
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql-deployment
+  namespace: default
 spec:
   replicas: 1
   selector:
@@ -69,16 +44,3 @@ spec:
         - name: mysql-storage
           persistentVolumeClaim:
             claimName: mysql-pvc
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: db-service
-spec:
-  ports:
-    - port: 3306
-      targetPort: 3306
-  selector:
-    app: db
-  clusterIP: None  

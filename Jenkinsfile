@@ -25,7 +25,7 @@ pipeline {
                     // Mettez ici vos commandes pour pousser
                     sh 'docker tag ${DOCKER_IMAGE1}:${DOCKER_TAG1} ngeuya/${DOCKER_IMAGE1}:${DOCKER_TAG1}'
                     sh 'docker push ngeuya/${DOCKER_IMAGE1}:${DOCKER_TAG1}'
-                    sh 'docker tag ${DOCKER_IMAGE2                                                                                                         NH}:${DOCKER_TAG2} ngeuya/${DOCKER_IMAGE2}:${DOCKER_TAG2}'
+                    sh 'docker tag ${DOCKER_IMAGE2}:${DOCKER_TAG2} ngeuya/${DOCKER_IMAGE2}:${DOCKER_TAG2}'
                     sh 'docker push ngeuya/${DOCKER_IMAGE2}:${DOCKER_TAG2}'
                 }
             }
@@ -35,9 +35,9 @@ pipeline {
                 withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
                     script {
                         // Déployer sur Kubernetes
-                        sh 'kubectl apply -f components.yaml --kubeconfig=${KUBECONFIG} --validate=false '
-                        sh 'kubectl apply -f db-deployment.yml --kubeconfig=${KUBECONFIG} --validate=false'
-                        sh 'kubectl apply -f web-deployment.yml --kubeconfig=${KUBECONFIG} --validate=false'
+                        sh 'kubectl apply -f kubernetes/components.yaml --kubeconfig=${KUBECONFIG} --validate=false '
+                        sh 'kubectl apply -f kubernetes/db-deployment.yml --kubeconfig=${KUBECONFIG} --validate=false'
+                        sh 'kubectl apply -f kubernetes/web-deployment.yml --kubeconfig=${KUBECONFIG} --validate=false'
                     }
                 }
             }
