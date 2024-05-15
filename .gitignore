@@ -1,5 +1,5 @@
 test.txt
-/Terraform/./Terraform
+/Terraform/./terraform
 /Terraform/*.tfstate
 /Terraform/*.tfstate.backup
 /Terraform/*.hcl
