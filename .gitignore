@@ -1,0 +1,9 @@
+test.txt
+/Terraform/./Terraform
+/Terraform/*.tfstate
+/Terraform/*.tfstate.backup
+/Terraform/*.hcl
+/Terraform-Cloud/./Terraform
+/Terraform-Cloud/*.tfstate
+/Terraform-Cloud/*.tfstate.backup
+/Terraform-Cloud/*.hcl
