@@ -1,7 +1,7 @@
 # Projet Fil rouge pour l'apprentissage des outils devOps
 ## Prerequis 
-### Installer minikube 
-### Installer terraform
+#### Installer minikube 
+#### Installer terraform
 
 ## Clonez le projet dans le server web sur htdocs
 
