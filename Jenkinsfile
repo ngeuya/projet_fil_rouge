@@ -9,52 +9,8 @@ pipeline {
         DOCKER_TAG2 = "latest"
     }
     stages {
-        stage('Build') {
-             when {
-                branch 'main'
-            }
-            steps {
-                script {
-                    sh 'docker --version' // Vérifier que Docker est accessible
-                    // Lancement de Docker Compose
-                    sh 'docker build -t ${DOCKER_IMAGE2}:${DOCKER_TAG1} -f Db.Dockerfile .'
-                    sh 'docker build -t ${DOCKER_IMAGE1}:${DOCKER_TAG2} -f Web.Dockerfile .'
-                }
-            }
-        }
-        stage('Push Docker Image') {
-            when {
-                branch 'main'
-            }
-            steps {
-                script {
-                    // Mettez ici vos commandes pour pousser
-                    sh 'docker tag ${DOCKER_IMAGE1}:${DOCKER_TAG1} ngeuya/${DOCKER_IMAGE1}:${DOCKER_TAG1}'
-                    sh 'docker push ngeuya/${DOCKER_IMAGE1}:${DOCKER_TAG1}'
-                    sh 'docker tag ${DOCKER_IMAGE2}:${DOCKER_TAG2} ngeuya/${DOCKER_IMAGE2}:${DOCKER_TAG2}'
-                    sh 'docker push ngeuya/${DOCKER_IMAGE2}:${DOCKER_TAG2}'
-                }
-            }
-        }
-        stage('Deploy') {
-            when {
-                branch 'main'
-            }
-            steps {
-                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-                    script {
-                        // Déployer sur Kubernetes
-                        sh 'kubectl apply -f kubernetes/components.yaml --kubeconfig=${KUBECONFIG} --validate=false '
-                        sh 'kubectl apply -f kubernetes/db-deployment.yml --kubeconfig=${KUBECONFIG} --validate=false'
-                        sh 'kubectl apply -f kubernetes/web-deployment.yml --kubeconfig=${KUBECONFIG} --validate=false'
-                    }
-                }
-            }
-        }
         stage('Provisionnement Infrastructure') {
-            when {
-                branch 'ame-terra'
-            }
+
             steps {
                 script {
                     // Initialisation de Terraform
