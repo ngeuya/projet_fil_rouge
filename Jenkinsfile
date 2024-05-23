@@ -10,6 +10,9 @@ pipeline {
     }
     stages {
         stage('Build') {
+             when {
+                branch 'main'
+            }
             steps {
                 script {
                     sh 'docker --version' // Vérifier que Docker est accessible
@@ -20,6 +23,9 @@ pipeline {
             }
         }
         stage('Push Docker Image') {
+            when {
+                branch 'main'
+            }
             steps {
                 script {
                     // Mettez ici vos commandes pour pousser
@@ -31,6 +37,9 @@ pipeline {
             }
         }
         stage('Deploy') {
+            when {
+                branch 'main'
+            }
             steps {
                 withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
                     script {
@@ -42,6 +51,18 @@ pipeline {
                 }
             }
         }
+        stage('Provisionnement Infrastructure') {
+            when {
+                branch 'ame-terra'
+            }
+            steps {
+                script {
+                    // Initialisation de Terraform
+                    sh 'terraform init'
+                    // Application des configurations Terraform
+                    sh 'terraform apply -auto-approve'
+                }
+            }
     }
     post {
         success {
