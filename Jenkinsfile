@@ -11,6 +11,7 @@ pipeline {
                     // Initialisation de Terraform
                     sh 'terraform init'
                     // Application des configurations Terraform
+                    sh 'terraform plan'
                     sh 'terraform apply -auto-approve'
                 }
             }
@@ -18,11 +19,11 @@ pipeline {
     }
     post {
         success {
-            emailext body: 'Resultat du build: Success', subject: 'Detail du Build', to: 'ndiaye58amadou@gmail.com'
+            emailext body: 'Resultat du build: Success', subject: 'Detail du Build', to: 'ngeuya58@gmail.com'
 
         }
         failure {
-            emailext body: 'Resultat du build: Echec', subject: 'Detail du Build', to: 'ndiaye58amadou@gmail.com'
+            emailext body: 'Resultat du build: Echec', subject: 'Detail du Build', to: 'ngeuya58@gmail.com'
         }
     }
 }
