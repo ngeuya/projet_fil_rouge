@@ -15,6 +15,7 @@ pipeline {
                 }
             }
     }
+    }
     post {
         success {
             emailext body: 'Resultat du build: Success', subject: 'Detail du Build', to: 'ndiaye58amadou@gmail.com'
