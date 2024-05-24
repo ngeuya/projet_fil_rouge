@@ -1,2 +1,9 @@
 test.txt
-/Ansible/env/
+/Terraform-Local/./terraform
+/Terraform-Local/*.tfstate
+/Terraform-Local/*.tfstate.backup
+/Terraform-Local/*.hcl
+/Terraform-Cloud/./terraform
+/Terraform-Cloud/*.tfstate
+/Terraform-Cloud/*.tfstate.backup
+/Terraform-Cloud/*.hcl%                                                                                                                      
