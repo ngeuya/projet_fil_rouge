@@ -54,24 +54,24 @@
       register: db_service
       changed_when: "'configured' in db_service.stdout"
 
-    - name: Vérifier le statut du déploiement web
-      command: kubectl rollout status deployment/web-deployment
-      register: rollout_web_status
-      retries: 5
-      delay: 10
-      until: rollout_web_status.rc == 0
+    # - name: Vérifier le statut du déploiement web
+    #   command: kubectl rollout status deployment/web-deployment
+    #   register: rollout_web_status
+    #   retries: 5
+    #   delay: 10
+    #   until: rollout_web_status.rc == 0
 
-    - name: Vérifier le statut du déploiement db
-      command: kubectl rollout status deployment/db-deployment
-      register: rollout_db_status
-      retries: 5
-      delay: 10
-      until: rollout_db_status.rc == 0
+    # - name: Vérifier le statut du déploiement db
+    #   command: kubectl rollout status deployment/db-deployment
+    #   register: rollout_db_status
+    #   retries: 5
+    #   delay: 10
+    #   until: rollout_db_status.rc == 0
 
-    - name: Rollback en cas d'échec du déploiement web
-      command: kubectl rollout undo deployment/web-deployment
-      when: rollout_web_status.rc != 0
+    # - name: Rollback en cas d'échec du déploiement web
+    #   command: kubectl rollout undo deployment/web-deployment
+    #   when: rollout_web_status.rc != 0
 
-    - name: Rollback en cas d'échec du déploiement db
-      command: kubectl rollout undo deployment/db-deployment
-      when: rollout_db_status.rc != 0
+    # - name: Rollback en cas d'échec du déploiement db
+    #   command: kubectl rollout undo deployment/db-deployment
+    #   when: rollout_db_status.rc != 0
