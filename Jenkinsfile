@@ -10,6 +10,7 @@ pipeline {
                 script {
                     // Initialisation de Terraform
                     sh 'cd Terraform'
+                    sh 'ls'
                     sh 'terraform init'
                     // Application des configurations Terraform
                     sh 'terraform plan'
