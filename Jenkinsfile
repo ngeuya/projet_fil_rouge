@@ -8,7 +8,7 @@ pipeline {
             steps {
                 script {
                     sh 'ls' // Liste les fichiers et dossiers pour vérifier le contexte
-                    sh 'cd Terraform' // Change le répertoire vers Terraform
+                    sh 'cd Terraform-Local' // Change le répertoire vers Terraform
                     sh 'ls' // Liste à nouveau pour vérifier le contenu du dossier Terraform
                     sh 'terraform init' // Initialise Terraform
                     sh 'terraform plan' // Affiche le plan Terraform
