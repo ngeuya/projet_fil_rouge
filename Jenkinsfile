@@ -22,6 +22,7 @@ pipeline {
                 script {
                     sh '''
                     source Ansible/env/bin/activate
+                    cd Ansible
                     ansible-playbook -i localhost, -c local ansible-deploy.yml
                     '''
                 }
