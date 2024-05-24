@@ -1,8 +1,8 @@
 test.txt
-/Terraform/./terraform
-/Terraform/*.tfstate
-/Terraform/*.tfstate.backup
-/Terraform/*.hcl
+/Terraform-Local/./terraform
+/Terraform-Local/*.tfstate
+/Terraform-Local/*.tfstate.backup
+/Terraform-Local/*.hcl
 /Terraform-Cloud/./terraform
 /Terraform-Cloud/*.tfstate
 /Terraform-Cloud/*.tfstate.backup
