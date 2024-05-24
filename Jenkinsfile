@@ -9,6 +9,7 @@ pipeline {
             steps {
                 script {
                     // Initialisation de Terraform
+                    sh 'cd Terraform'
                     sh 'terraform init'
                     // Application des configurations Terraform
                     sh 'terraform plan'
