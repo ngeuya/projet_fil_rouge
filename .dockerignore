@@ -1,0 +1,9 @@
+/Ansible
+/base_de_donnee
+/kubernetes
+/Prometheus
+docker-compose.yml
+.gitignore
+Db.Dockerfile
+Web.Dockerfile
+Jenkinsfile

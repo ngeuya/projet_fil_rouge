@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apache-exporter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apache-exporter
+  template:
+    metadata:
+      labels:
+        app: apache-exporter
+    spec:
+      containers:
+      - name: apache-exporter
+        image: bitnami/apache-exporter
+        ports:
+        - containerPort: 9117
+        env:
+        - name: SCRAPE_URI
+          value: "http://apache-service/server-status/?auto"  # Assurez-vous que c'est l'URL correcte

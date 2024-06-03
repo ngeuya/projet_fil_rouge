@@ -1,0 +1,15 @@
+global:
+  scrape_interval: 15s
+scrape_configs:
+  - job_name: 'kubernetes'
+    scheme: https  # Utilise HTTPS car l'API server de Kubernetes est sécurisé
+    tls_config:
+         # insecure_skip_verify: true  # Ajoutez cette ligne pour ignorer la vérification du certificat
+        ca_file: /Users/t-sim/.minikube/ca.crt # Chemin vers le certificat CA
+        insecure_skip_verify: true             # Ignorer la validation du certificat
+        cert_file: /Users/t-sim/.minikube/profiles/minikube/client.crt  # Chemin vers le certificat client
+        key_file: /Users/t-sim/.minikube/profiles/minikube/client.key  # Chemin vers la clé privée du client
+    kubernetes_sd_configs:
+      - api_server:  https://127.0.0.1:52922 # Utilisez l'adresse du serveur API de Kubernetes
+        role: pod
+        bearer_token_file: /Users/t-sim/.minikube/prometheus.token  # Chemin vers le fichier token

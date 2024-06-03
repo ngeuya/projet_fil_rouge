@@ -1,0 +1,35 @@
+global:
+  scrape_interval: 15s  # Définir l'intervalle de scrutation global.
+
+scrape_configs:
+  # Configuration pour scruter les pods.
+  - job_name: 'kubernetes-pods'
+    kubernetes_sd_configs:
+      - role: pod
+    relabel_configs:
+      - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+        action: keep
+        regex: true
+      - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+        action: replace
+        regex: ([^:]+)(?::\d+)?;(\d+)
+        replacement: $1:$2
+        target_label: __address__
+      - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+        action: replace
+        target_label: __metrics_path__
+        regex: (.*)
+      - action: labelmap
+        regex: __meta_kubernetes_pod_label_(.+)
+
+  # Nouvelle configuration pour l'Apache Exporter
+  - job_name: 'apache-exporter'
+    kubernetes_sd_configs:
+      - role: service
+    relabel_configs:
+      - source_labels: [__meta_kubernetes_service_name]
+        action: keep
+        regex: apache-exporter-service  # Assurez-vous que cela correspond au nom du service Apache Exporter
+      - source_labels: [__address__]
+        target_label: __address__
+        replacement: '${1}'  # Port par défaut de l'Apache Exporter
