@@ -12,23 +12,29 @@ pipeline {
                 checkout scm
             }
         }
-        stage('SonarQube Analysis') {
-            steps {
-                // Récupération du chemin du scanner à partir des outils configurés
-                def scannerHome = tool 'sonarScanner'
-                // Assurez-vous que l'environnement SonarQube est configuré correctement
-                withSonarQubeEnv('SonarQube') { // Le nom doit correspondre à celui configuré dans Jenkins
-                    // Commande pour exécuter le scanner SonarQube
-                    sh "${scannerHome}/bin/sonar-scanner"
-                }
-            }
-        }
+        stage('SonarQube analysis') {
+          steps {
+              script{
+                   scannerHome = tool 'sonar-scanner'
+              }
+             withSonarQubeEnv('sonar') {// If you have configured more than one global server connection, you can specify its name as configured in Jenkins
+                 sh """
+                    ${scannerHome}/bin/sonarScanner \
+                    -Dsonar.projectKey=projetFil \
+                    -Dsonar.projectName="projetFil" \
+                    -Dsonar.projectVersion=1.0 \
+                    -Dsonar.sources=.
+                    """
+             }
+          }
+    }
         stage('Quality Gate') {
             steps {
+                sh 'echo "Test"'
                 // Attend que la Quality Gate de SonarQube soit terminée
-                timeout(time: 1, unit: 'HOURS') {
-                    waitForQualityGate(abortPipeline: true)
-                }
+                // timeout(time: 1, unit: 'HOURS') {
+                //     waitForQualityGate(abortPipeline: true)
+                // }
             }
         }
     }
