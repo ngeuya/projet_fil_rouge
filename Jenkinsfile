@@ -1,20 +1,17 @@
 pipeline {
     agent any
 
-    environment {
-        // Définissez l'URL du serveur SonarQube et le token d'authentification si nécessaire
-        SONARQUBE_SERVER_URL = 'http://localhost:9000'
-        SONARQUBE_AUTH_TOKEN = 'sqa_910be82606ba7d72d14977dc0badfba587a402ea'
-    }
+    // environment {
+    //     // Définissez l'URL du serveur SonarQube et le token d'authentification si nécessaire
+    //     SONARQUBE_SERVER_URL = 'http://localhost:9000'
+    //     SONARQUBE_AUTH_TOKEN = 'sqa_910be82606ba7d72d14977dc0badfba587a402ea'
+    // }
 
     stages {
-        // stage('Checkout') {
-        //     steps {
-        //         // Récupère le code depuis le repository Git
-        //         git url: 'https://github.com/your-username/your-repo.git', branch: 'main'
-        //     }
-        // }
 
+        stage('SCM') {
+            checkout scm
+        }
         stage('SonarQube Analysis') {
             def scannerHome = tool 'SonarScanner';
             withSonarQubeEnv() {
