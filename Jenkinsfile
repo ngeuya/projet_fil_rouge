@@ -1,10 +1,10 @@
 pipeline {
     agent any
-    // tools {
-    //     // Assurez-vous que l'installation de 'SonarScanner' est correctement configurée dans Jenkins
-    //     // Le nom de l'outil doit correspondre à celui configuré dans Jenkins
-    //     // sonarQube 'sonarqube'
-    // }
+    tools {
+        // Assurez-vous que l'installation de 'SonarScanner' est correctement configurée dans Jenkins
+        // Le nom de l'outil doit correspondre à celui configuré dans Jenkins
+         sonarQube 'sonarScanner'
+    }
     stages {
         stage('SCM') {
             steps {
