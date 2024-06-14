@@ -15,19 +15,10 @@ pipeline {
         //     }
         // }
 
-        stage('SonarQube analysis') {
-            steps {
-                // Exécute l'analyse SonarQube
-                script {
-                    scannerHome = tool 'SonarQubeScanner'
-                    withSonarQubeEnv('sonarqube') {
-                        sh "${scannerHome}/bin/sonar-scanner \
-                            -Dsonar.projectKey=your-project-key \
-                            -Dsonar.sources=. \
-                            -Dsonar.host.url=${SONARQUBE_SERVER_URL} \
-                            -Dsonar.login=${SONARQUBE_AUTH_TOKEN}"
-                    }
-                }
+        stage('SonarQube Analysis') {
+            def scannerHome = tool 'SonarScanner';
+            withSonarQubeEnv() {
+            sh "${scannerHome}/bin/sonar-scanner"
             }
         }
 
