@@ -1,10 +1,6 @@
 pipeline {
     agent any
-    // tools {
-    //     // Assurez-vous que l'installation de 'SonarScanner' est correctement configurée dans Jenkins
-    //     // Le nom de l'outil doit correspondre à celui configuré dans Jenkins
-    //      sonarQube 'sonarScanner'
-    // }
+
     stages {
         stage('SCM') {
             steps {
@@ -16,9 +12,10 @@ pipeline {
             steps {
                 withSonarQubeEnv('sonarqube') { // Assurez-vous que 'sonarqube' correspond au nom configuré dans Jenkins
                     script {
-                        // Exécution de l'analyse SonarQube
+                        // Utilise le scanner SonarQube configuré via SONAR_RUNNER_HOME
+                        def scannerHome = tool 'sonarScanner'
                         sh """
-                        sonar-scanner \
+                        ${SONAR_RUNNER_HOME}/bin/sonar-scanner \
                         -Dsonar.projectKey=projetFil \
                         -Dsonar.projectName="projetFil" \
                         -Dsonar.projectVersion=1.0 \
@@ -30,11 +27,12 @@ pipeline {
         }
         stage('Quality Gate') {
             steps {
+                // Echo juste pour tester le passage dans cette étape
                 sh 'echo "Test"'
                 // Attend que la Quality Gate de SonarQube soit terminée
-                // timeout(time: 1, unit: 'HOURS') {
-                //     waitForQualityGate(abortPipeline: true)
-                // }
+                timeout(time: 1, unit: 'HOURS') {
+                    waitForQualityGate(abortPipeline: true)
+                }
             }
         }
     }
@@ -44,6 +42,7 @@ pipeline {
         }
     }
 }
+
 
 
 
