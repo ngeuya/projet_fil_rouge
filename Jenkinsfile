@@ -3,7 +3,7 @@ pipeline {
     tools {
         // Assurez-vous que l'installation de 'SonarScanner' est correctement configurée dans Jenkins
         // Le nom de l'outil doit correspondre à celui configuré dans Jenkins
-        sonarQube 'sonarScanner'
+        sonarQube 'sonarqube'
     }
     stages {
         stage('SCM') {
@@ -17,7 +17,7 @@ pipeline {
               script{
                    scannerHome = tool 'sonarScanner'
               }
-             withSonarQubeEnv('sonar') {// If you have configured more than one global server connection, you can specify its name as configured in Jenkins
+             withSonarQubeEnv('sonarqube') {// If you have configured more than one global server connection, you can specify its name as configured in Jenkins
                  sh """
                     ${scannerHome}/bin/sonarScanner \
                     -Dsonar.projectKey=projetFil \
