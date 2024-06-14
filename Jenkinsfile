@@ -1,21 +1,20 @@
 pipeline {
     agent any
-
+    environment {
+        SONAR_RUNNER_HOME = '/Users/t-sim/Documents/development/sonar-scanner-6.0.0.4432-macosx'
+    }
     stages {
         stage('SCM') {
             steps {
-                // Utilisez la fonction git ou checkout pour récupérer le code
                 checkout scm
             }
         }
         stage('SonarQube analysis') {
             steps {
-                withSonarQubeEnv('sonarqube') { // Assurez-vous que 'sonarqube' correspond au nom configuré dans Jenkins
+                withSonarQubeEnv('sonarqube') {
                     script {
-                        // Utilise le scanner SonarQube configuré via SONAR_RUNNER_HOME
-                        def scannerHome = tool 'sonarScanner'
                         sh """
-                        ${SONAR_RUNNER_HOME}/bin/sonar-scanner \
+                        ${env.SONAR_RUNNER_HOME}/bin/sonar-scanner \
                         -Dsonar.projectKey=projetFil \
                         -Dsonar.projectName="projetFil" \
                         -Dsonar.projectVersion=1.0 \
@@ -27,11 +26,9 @@ pipeline {
         }
         stage('Quality Gate') {
             steps {
-                // Echo juste pour tester le passage dans cette étape
-                sh 'echo "Test"'
-                // Attend que la Quality Gate de SonarQube soit terminée
+                echo "Test"
                 timeout(time: 1, unit: 'HOURS') {
-                    waitForQualityGate(abortPipeline: true)
+                    waitForQualityGate abortPipeline: true
                 }
             }
         }
