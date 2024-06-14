@@ -1,11 +1,9 @@
 pipeline {
     agent any
-
-    // environment {
-    //     // Définissez l'URL du serveur SonarQube et le token d'authentification si nécessaire
-    //     SONARQUBE_SERVER_URL = 'http://localhost:9000'
-    //     SONARQUBE_AUTH_TOKEN = 'sqa_910be82606ba7d72d14977dc0badfba587a402ea'
-    // }
+        tools {
+        // Assurez-vous que 'SonarScanner' est correctement configuré dans Jenkins
+        sonarQube 'sonarScanner'
+    }
 
     stages {
 
@@ -13,7 +11,7 @@ pipeline {
             checkout scm
         }
         stage('SonarQube Analysis') {
-            def scannerHome = tool 'SonarScanner';
+            def scannerHome = tool 'sonarScanner';
             withSonarQubeEnv() {
             sh "${scannerHome}/bin/sonar-scanner"
             }
