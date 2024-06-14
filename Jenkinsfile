@@ -1,10 +1,10 @@
 pipeline {
     agent any
-    tools {
-        // Assurez-vous que l'installation de 'SonarScanner' est correctement configurée dans Jenkins
-        // Le nom de l'outil doit correspondre à celui configuré dans Jenkins
-         sonarQube 'sonarScanner'
-    }
+    // tools {
+    //     // Assurez-vous que l'installation de 'SonarScanner' est correctement configurée dans Jenkins
+    //     // Le nom de l'outil doit correspondre à celui configuré dans Jenkins
+    //      sonarQube 'sonarScanner'
+    // }
     stages {
         stage('SCM') {
             steps {
@@ -13,21 +13,21 @@ pipeline {
             }
         }
         stage('SonarQube analysis') {
-          steps {
-              script{
-                   scannerHome = tool 'sonarScanner'
-              }
-             withSonarQubeEnv('sonarqube') {// If you have configured more than one global server connection, you can specify its name as configured in Jenkins
-                 sh """
-                    ${scannerHome}/bin/sonarScanner \
-                    -Dsonar.projectKey=projetFil \
-                    -Dsonar.projectName="projetFil" \
-                    -Dsonar.projectVersion=1.0 \
-                    -Dsonar.sources=.
-                    """
-             }
-          }
-    }
+            steps {
+                withSonarQubeEnv('sonarqube') { // Assurez-vous que 'sonarqube' correspond au nom configuré dans Jenkins
+                    script {
+                        // Exécution de l'analyse SonarQube
+                        sh """
+                        sonar-scanner \
+                        -Dsonar.projectKey=projetFil \
+                        -Dsonar.projectName="projetFil" \
+                        -Dsonar.projectVersion=1.0 \
+                        -Dsonar.sources=.
+                        """
+                    }
+                }
+            }
+        }
         stage('Quality Gate') {
             steps {
                 sh 'echo "Test"'
