@@ -15,7 +15,7 @@ pipeline {
         stage('SonarQube analysis') {
           steps {
               script{
-                   scannerHome = tool 'sonar-scanner'
+                   scannerHome = tool 'sonarScanner'
               }
              withSonarQubeEnv('sonar') {// If you have configured more than one global server connection, you can specify its name as configured in Jenkins
                  sh """
